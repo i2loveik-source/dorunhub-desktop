@@ -15,7 +15,7 @@ pub fn run() {
         ))
         .setup(|app| {
             // 메인 윈도우
-            let win = WebviewWindowBuilder::new(
+            let _win = WebviewWindowBuilder::new(
                 app,
                 "main",
                 WebviewUrl::External("https://dorunhub.com".parse().unwrap()),
