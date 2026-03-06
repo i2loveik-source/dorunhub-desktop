@@ -1,0 +1,7 @@
+node_modules/
+target/
+src-tauri/target/
+*.dmg
+*.exe
+*.AppImage
+*.deb
