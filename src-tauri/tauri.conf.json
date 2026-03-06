@@ -6,8 +6,7 @@
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devUrl": "https://dorunhub.com",
-    "frontendDist": ""
+    "frontendDist": "../dist"
   },
   "app": {
     "withGlobalTauri": false,
@@ -15,6 +14,7 @@
       {
         "label": "main",
         "title": "두런허브",
+        "url": "https://dorunhub.com",
         "width": 1280,
         "height": 800,
         "minWidth": 800,
@@ -36,14 +36,7 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ],
-    "macOS": {
-      "entitlements": null,
-      "exceptionDomain": "",
-      "frameworks": [],
-      "providerShortName": null,
-      "signingIdentity": null
-    }
+    ]
   },
   "plugins": {
     "notification": {},
