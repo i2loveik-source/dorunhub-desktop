@@ -4,7 +4,9 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -22,37 +24,24 @@ jobs:
             args: ''
 
     runs-on: ${{ matrix.platform }}
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Rust 설치
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-
-      - name: Linux 의존성 설치
-        if: matrix.platform == 'ubuntu-22.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-
-      - name: Node.js 설치
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: npm 의존성 설치
-        run: npm install
-
-      - name: Tauri 빌드
-        uses: tauri-apps/tauri-action@v0
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - if: matrix.platform == 'ubuntu-22.04'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      - run: npm install
+      - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: '두런허브 ${{ github.ref_name }}'
-          releaseBody: '두런허브 데스크탑 앱 - Windows / macOS / Linux'
+          releaseName: '두런허브 데스크탑 ${{ github.ref_name }}'
+          releaseBody: '두런허브 PC 앱 설치 파일입니다.'
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
