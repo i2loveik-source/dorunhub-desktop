@@ -1,6 +1,6 @@
 {
   "name": "dorunhub-desktop",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "두런허브 데스크탑 앱",
   "scripts": {
     "tauri": "tauri",
